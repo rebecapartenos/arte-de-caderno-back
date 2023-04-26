@@ -5,6 +5,7 @@ const loginRouter = express.Router();
 
 loginRouter.get('/login', LoginController.listLogin)
             .post('/login', LoginController.logar)
+            .post('/login/insert', LoginController.insertLogin)
 
             
 

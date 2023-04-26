@@ -69,6 +69,35 @@ class LoginController {
         }
     }
 
+    insertLogin = async (req, res) => {
+        const {username,password,accessType} = req.body;
+        if(username === null || password === null || accessType === null){
+            return res.status(400).json({message: 'The parameters cannot be null'});
+        }
+        if(username.length < 4){
+            return res.status(400).json({message: 'Usuario com tamanho menor que 4'});
+        }
+        if(accessType !== 'professor' && accessType !== 'student'){
+            return res.status(400).json({message: 'AccessType invalido'});
+        }
+        
+        const login = new Login({
+            username: username,
+            password: password,
+            accessType: accessType
+        });
+
+        try{
+            login.save();
+            return res.status(200).json({message: 'Cadastro OK'});
+        }
+        catch(err){
+            return res.status(400).json({message: err.message});
+        }
+    } 
+
+
+
 }
 
 export default new LoginController;
